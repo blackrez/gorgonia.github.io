@@ -1,24 +1,29 @@
 ---
 title: "Simple Convolution Neural Net (MNIST)"
 date: 2019-10-29T20:09:05+01:00
-draft: false
+draft: yes
 weight: -98
 ---
 
-## About
+## À propos
 
-This a step by step tutorial to build and train a convolution neural network on the MNIST dataset.
+C'est un tutoriel détaillé pour créer et entraîner un réseaux neuronal convolutif sur le jeu de données MNIST.
+
+Le code complet peut être trouvé dans le répertoire `examples` du dépôt Gorgonia.
+Le but de ce tutoriel est d'expliquer le code. Le livre [Go Machine Learning Projects](https://www.packtpub.com/eu/big-data-and-business-intelligence/go-machine-learning-projects) fournit plus d'explications détaillées.
 
 The complete code can be found in the `examples` directory of the principal Gorgonia repository.
 The goal of this tutorial is to explain in detail the code. Further explanation of how it works can be found in the
 book [Go Machine Learning Projects](https://www.packtpub.com/eu/big-data-and-business-intelligence/go-machine-learning-projects)
 
-### The dataset
+### Le jeu de données
 
 {{% notice info %}}
+Cette partie est sur le chargement et l'affichage du dataset. Passez à l'étape suivante, [le réseaux neuronal convolutif](#the-convolution-neural-net).
 This part is about loading and printing the dataset. If you want to jump straight into the neural net, feel free to skip it and go to [The Convolution Neural Net part](#the-convolution-neural-net).
 {{% /notice %}}
 
+Les données d'entrainements et de tests peuvent être téléchargés depuis le site web La base de données de Yann LeCun
 The training and testing sets can be downloaded from [Yann LeCun's MNIST website](http://yann.lecun.com/exdb/mnist/)
 
 * [train-images-idx3-ubyte.gz](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz):  training set images (9912422 bytes)
@@ -26,10 +31,12 @@ The training and testing sets can be downloaded from [Yann LeCun's MNIST website
 * [t10k-images-idx3-ubyte.gz](http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz):   test set images (1648877 bytes)
 * [t10k-labels-idx1-ubyte.gz](http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz):   test set labels (4542 bytes)
 
-As explained on the website, those files hold multiple images or labels encoded in binary.
-Every image/label starts with a magic number. The `encoding/binary` package of the standard library of Go makes it easy to read those files.
+Comme expliqué sur le site web, les fichiers suivants contiennent plusieurs images et labels encodés en tant que fichier binaire.
+Chaque image/label démarre avec un nombre ["magic"](http://www.linuxcertif.com/man/1/file/). Le paquet `encoding/binary` de la  librairie standard de Go permet de lire facilement ces fichiers.
 
-##### The `mnist` package
+##### Le paquet `mnist`
+
+Pour plus de commodité, Gorgonia a créé un paquet `mnist` dans le répertoire `examples` 
 
 As a commodity, Gorgonia has created a package `mnist` in the `examples` subdirectory. Its goal is to extract the information from the data and to create `tensors`.
 
